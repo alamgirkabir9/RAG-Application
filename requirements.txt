@@ -6,7 +6,6 @@ langchain
 langchain-community
 numpy
 httpx
-torch
 transformers
 PyPDF2
 pypdf
