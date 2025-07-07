@@ -11,3 +11,4 @@ transformers
 PyPDF2
 pypdf
 gunicorn
+psutil
