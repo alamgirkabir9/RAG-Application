@@ -14,8 +14,9 @@ class DocumentStore:
     
     def __init__(self, vector_db_path: Optional[str] = None):
         """Initialize the document store"""
-        self.data_dir = os.getenv("DATA_DIR", "/tmp/data")
-        self.vector_db_path = os.getenv("VECTOR_DB_PATH", "/tmp/vector_store")
+        self.vector_db_path = vector_db_path or Config.VECTOR_DB_PATH
+        print(f"Using vector DB path: {self.vector_db_path}")
+        
         self.embeddings = get_embedding_model()
         print("Embedding model loaded")
         
