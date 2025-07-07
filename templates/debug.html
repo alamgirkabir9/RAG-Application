@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Documents - RAG Bio Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .summary {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .document-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .document-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .document-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .document-preview {
+            color: #666;
+            font-style: italic;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Debug: Document Storage</h1>
+        
+        <div class="summary">
+            <h2>System Status</h2>
+            <p><strong>Total Documents:</strong> {{ doc_count }}</p>
+            <p><strong>Total Chunks:</strong> {{ chunk_count }}</p>
+        </div>
+        
+        <h2>Stored Documents</h2>
+        <div class="document-list">
+            {% if docs %}
+                {% for doc in docs %}
+                <div class="document-card">
+                    <div class="document-title">{{ doc.title }}</div>
+                    <p><strong>ID:</strong> {{ doc.id }}</p>
+                    <p><strong>Chunks:</strong> {{ doc.chunks }}</p>
+                    <div class="document-preview">
+                        <strong>Preview:</strong> {{ doc.first_chunk_preview }}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No documents stored in the system.</p>
+            {% endif %}
+        </div>
+        
+        <div>
+            <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

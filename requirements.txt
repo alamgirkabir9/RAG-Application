@@ -1,0 +1,13 @@
+Flask
+python-dotenv
+sentence-transformers
+faiss-cpu
+langchain
+langchain-community
+numpy
+httpx
+torch
+transformers
+PyPDF2
+pypdf
+gunicorn

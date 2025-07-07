@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Content - RAG Bio Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        textarea {
+            min-height: 100px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .response-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Content</h1>
+        
+        <form method="post" id="generateForm">
+            <div class="form-group">
+                <label for="type">Content Type</label>
+                <select id="type" name="type" required>
+                    <option value="bio">Professional Bio</option>
+                    <option value="cover_letter">Cover Letter</option>
+                    <option value="general">General Response</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="query">Query or Job Description</label>
+                <textarea id="query" name="query" placeholder="Describe what you're looking for. For a bio, describe your target role. For a cover letter, paste the job description here." required>{{ query|default('') }}</textarea>
+            </div>
+            
+            <div>
+                <button type="submit" class="btn">Generate</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+                <!-- In your generate.html template -->
+                        {% if error %}
+                            <div class="error-message">{{ error }}</div>
+                        {% endif %}
+            </div>
+        </form>
+        
+        <div id="loading" class="loading">
+            Generating content, please wait...
+        </div>
+        
+        {% if response %}
+        <div class="response-container">
+            <h2>Generated Content:</h2>
+            <div id="response">{{ response }}</div>
+            <button class="btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const responseText = document.getElementById('response').innerText;
+            navigator.clipboard.writeText(responseText)
+                .then(() => {
+                    alert('Content copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
+
+        document.getElementById('generateForm').addEventListener('submit', function() {
+            document.getElementById('loading').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: rag-application
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: LLAMA_API_KEY
+        sync: false
+      - key: VECTOR_DB_PATH
+        value: /opt/render/project/src/data/vector_store
+    disk:
+      name: rag-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 10

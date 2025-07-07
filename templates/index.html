@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Bio Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG Bio Generator</h1>
+        
+        <div class="card">
+            <h2>Store Your Information</h2>
+            <p>Add your professional information to the system. This will be used to generate customized bios and other content.</p>
+            <a href="{{ url_for('add_data') }}" class="btn">Add Text Data</a>
+            
+            <h3>Upload Document</h3>
+            <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".pdf,.txt">
+                <button type="submit" class="btn">Upload</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h2>Generate Content</h2>
+            <p>Create professional bios, cover letters, and more based on your stored information.</p>
+            <a href="{{ url_for('generate') }}" class="btn">Generate Content</a>
+        </div>
+    </div>
+</body>
+</html>
