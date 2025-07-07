@@ -7,7 +7,7 @@ class Config:
     # Railway environment variables
     LLAMA_API_KEY = os.getenv("LLAMA_API_KEY")
     MODEL_NAME = "LLaMA 3 70B"
-    EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+    EMBEDDING_MODEL = "sentence-transformers/paraphrase-MiniLM-L3-v2"
 
     # Vector database settings - use /tmp for Railway
     VECTOR_DB_PATH = os.getenv("VECTOR_DB_PATH", "/tmp/vector_store")
